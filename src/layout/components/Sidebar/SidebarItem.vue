@@ -4,6 +4,8 @@
       <app-link v-if="onlyOneChild.meta" :to="resolvePath(onlyOneChild.path)">
         <el-menu-item :index="resolvePath(onlyOneChild.path)" :class="{'submenu-title-noDropdown':!isNest}" @click="setSubMenu([])">
           <item :icon="onlyOneChild.meta.icon||(item.meta&&item.meta.icon)" :title="onlyOneChild.meta.title" />
+          <div class="menu_item_radius menu_item_top_radius"></div>
+          <div class="menu_item_radius menu_item_bottom_radius"></div>
         </el-menu-item>
       </app-link>
     </template>
@@ -26,6 +28,8 @@
       <app-link :to="resolvePath(item.children[0].path)">
         <el-menu-item ref="subMenu" :index="resolvePath(item.path)" :class="{'submenu-title-noDropdown':!isNest}" @click="setSubMenu(item)">
           <item v-if="item.meta" :icon="item.meta && item.meta.icon" :title="item.meta.title" />
+          <div class="menu_item_radius menu_item_top_radius"></div>
+          <div class="menu_item_radius menu_item_bottom_radius"></div>
         </el-menu-item>
       </app-link>
     </template>
@@ -44,15 +48,69 @@
         /*border-bottom-left-radius: 15px;*/
       }
       .el-menu .el-menu-item{
+        .menu_item_radius {
+          display: none;
+          width: 10px;
+          height: 10px;
+          background: #fff;
+          position: absolute;
+          z-index: 1;
+        }
+        &:hover{
+          z-index: 10;
+        }
         border-top-left-radius: 40px;
         border-bottom-left-radius: 40px;
         padding: 0 0 0 15px !important;
         &.is-active {
+          &:hover{
+            z-index: 10;
+            .menu_item_radius{
+              background: $menuHover;
+            }
+          }
           background-color: #fff !important;
           color: $menuBg !important;
           span {
             color: $menuBg !important;
           }
+
+          .menu_item_radius {
+            display: inline-block;
+          }
+          .menu_item_bottom_radius {
+            bottom: -10px;
+            right: 0;
+          }
+          .menu_item_top_radius {
+            top: -10px;
+            right: 0;
+          }
+          .menu_item_top_radius:before {
+            content: "";
+            display: inline-block;
+            width: 10px;
+            height: 10px;
+            background: $menuBg;
+            position: absolute;
+            left: 0;
+            top: 0;
+            border-radius: 0 0 5px 0;
+          }
+          .menu_item_bottom_radius:after {
+            content: "";
+            display: inline-block;
+            width: 10px;
+            height: 10px;
+            background: $menuBg;
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            border-radius: 0 5px 0 0;
+          }
+        }
+        &.is-active:hover {
+          color: #fff !important;
         }
       }
     }
