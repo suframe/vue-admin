@@ -48,6 +48,16 @@
     left: $sideBarWidth;
     height: calc(100% - 52px);
     overflow: hidden;
+    .el-menu-item {
+      height: 36px;
+      line-height: 36px;
+      margin: 15px 10px;
+      text-align: center;
+      padding: 0 !important;
+    }
+    .el-menu-item.is-active{
+      background-color: #e8f4ff;
+    }
   }
 </style>
 
